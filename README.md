@@ -1,32 +1,52 @@
-# React + TypeScript + Vite
+# intersat
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A map-first prototype for exploring Swiss landscapes through swisstopo imagery. The map is the main canvas, with a compact location search, familiar map controls, points of interest, and a floating chat panel.
 
-Currently, two official plugins are available:
+## What’s here
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Swiss imagery:** SwissIMAGE aerial tiles and a colored map layer from swisstopo.
+- **Map exploration:** pan and zoom, view the scale, switch map styles, or return to Lauterbrunnen.
+- **Location search:** choose from a small preset list of Swiss destinations.
+- **Points of interest:** sample markers around Lauterbrunnen, including Staubbachfall and Trümmelbachfälle.
+- **Fieldnotes chat:** suggested prompts and local sample answers about the Lauterbrunnen landscape.
+- **Responsive layout:** map-first desktop view and a compact mobile interface.
 
-## React Compiler
+## Run locally
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Requires Node.js and npm.
 
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
-
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+```sh
+npm install
+npm run dev
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Open the local URL printed by Vite, usually `http://localhost:5173`.
+
+## Project commands
+
+| Command           | Description                                          |
+| ----------------- | ---------------------------------------------------- |
+| `npm run dev`     | Start the development server                         |
+| `npm run build`   | Type-check and build the production app into `dist/` |
+| `npm run preview` | Preview the production build locally                 |
+| `npm run lint`    | Run Oxlint                                           |
+
+## Data and current limitations
+
+Map tiles load directly from the [swisstopo WMTS service](https://wmts.geo.admin.ch/), so an internet connection is required. The aerial layer uses `ch.swisstopo.swissimage`; the alternate colored map layer uses `ch.swisstopo.pixelkarte-farbe`. Map attribution is displayed on the map.
+
+Search destinations, point-of-interest markers, and chat responses are currently hard-coded demonstration data in `src/App.tsx`. The chat uses simple local keyword matching: it does not analyze imagery, retrieve live information, or call an AI service. Detailed sample answers currently cover Lauterbrunnen; other locations show a notice explaining this limitation.
+
+## Stack
+
+React · TypeScript · Vite · Leaflet · React-Leaflet · Lucide
+
+## Repository layout
+
+```text
+src/
+  App.tsx     Map, sample data, search, and chat behavior
+  map.css     Map-first and responsive interface styles
+  main.tsx    React application entry point
+index.html    Page metadata and application mount point
+```

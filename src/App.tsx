@@ -98,9 +98,9 @@ function App() {
   return (
     <main className="app-shell">
       <header className="topbar">
-        <a className="brand" href="#map" aria-label="Höhenblick home">
+        <a className="brand" href="#map" aria-label="intersat home">
           <span className="brand-mark"><Mountain size={19} strokeWidth={1.8} /></span>
-          <span className="brand-name">höhenblick<span className="brand-period">.</span></span>
+          <span className="brand-name">intersat<span className="brand-period">.</span></span>
         </a>
         <div className="search-wrap">
           <Search size={16} aria-hidden="true" />

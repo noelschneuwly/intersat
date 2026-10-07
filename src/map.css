@@ -1,0 +1,120 @@
+:root {
+  color-scheme: light;
+  color: #303d34;
+  background: #f3f1e9;
+  font: 14px/1.45 'Avenir Next', Avenir, 'Segoe UI', sans-serif;
+  letter-spacing: 0;
+}
+* { box-sizing: border-box; }
+html, body, #root { width: 100%; height: 100%; margin: 0; }
+body { min-width: 320px; min-height: 100%; overflow: hidden; }
+button, input { font: inherit; }
+button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid #bd654d; outline-offset: 2px; }
+#root { width: 100%; max-width: none; min-height: 100dvh; margin: 0; text-align: left; border: 0; }
+.app-shell { width: 100%; height: 100dvh; min-height: 540px; display: flex; flex-direction: column; overflow: hidden; background: #f3f1e9; }
+.topbar { z-index: 800; height: 68px; flex: 0 0 68px; display: flex; align-items: center; gap: 28px; padding: 0 27px; color: #25332e; background: rgba(250,249,244,.97); border-bottom: 1px solid rgba(40,54,46,.13); box-shadow: 0 2px 8px rgba(25,34,27,.08); }
+.brand { min-width: 205px; display: flex; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+.brand-mark { width: 31px; height: 31px; display: grid; place-items: center; color: #f8f6ef; background: #263b32; border-radius: 50%; }
+.brand-name { font: 21px/1 Georgia, 'Iowan Old Style', serif; }
+.brand-period { color: #df7154; }
+.search-wrap { position: relative; width: min(370px,36vw); height: 38px; display: flex; align-items: center; gap: 10px; padding: 0 10px 0 12px; color: #78817a; background: #fffefa; border: 1px solid #deded5; border-radius: 4px; box-shadow: 0 1px 2px rgba(22,34,27,.035); }
+.search-wrap input { min-width: 0; flex: 1; padding: 0; color: #25332e; background: transparent; border: 0; outline: 0; font-size: 12px; }
+.search-wrap input::placeholder { color: #929890; }
+.search-wrap kbd { padding: 2px 5px; color: #858a83; background: #f4f3ed; border: 1px solid #e6e4dc; border-radius: 3px; font: 10px/1.5 'Avenir Next', Avenir, sans-serif; }
+.suggestions { position: absolute; z-index: 1100; top: calc(100% + 6px); right: 0; left: 0; padding: 4px; background: #fffefa; border: 1px solid #e2e0d7; border-radius: 5px; box-shadow: 0 8px 22px rgba(24,35,29,.14); }
+.suggestions button { width: 100%; display: flex; align-items: center; gap: 9px; padding: 9px 8px; color: #37443c; background: transparent; border: 0; border-radius: 3px; text-align: left; font-size: 12px; cursor: pointer; }
+.suggestions button:hover { background: #f2f2e9; }
+.suggestions button span { flex: 1; }
+.topbar-meta { margin-left: auto; display: flex; align-items: center; gap: 9px; color: #747e75; font-size: 9px; font-weight: 650; letter-spacing: .08em; white-space: nowrap; }
+.topbar-meta .live-indicator, .online-pill i { width: 6px; height: 6px; display: inline-block; background: #89a37d; border-radius: 50%; }
+.meta-divider { width: 1px; height: 13px; margin: 0 3px; background: #d9d9d0; }
+.avatar-button { width: 31px; height: 31px; display: grid; place-items: center; color: #4c5b4f; background: #e7e8df; border: 1px solid #d6d9ce; border-radius: 50%; font-size: 9px; font-weight: 700; cursor: pointer; }
+.map-stage { position: relative; flex: 1; min-height: 0; overflow: hidden; }
+.map-canvas { position: absolute; z-index: 1; inset: 0; background: #d7d8ce; }
+.leaflet-container { font-family: 'Avenir Next', Avenir, sans-serif; }
+.leaflet-control-zoom { margin: 16px 17px 0 0 !important; overflow: hidden; border: 1px solid rgba(45,57,48,.16) !important; border-radius: 4px !important; box-shadow: 0 2px 7px rgba(30,40,30,.12) !important; }
+.leaflet-control-zoom a { width: 31px !important; height: 31px !important; color: #36473c !important; background: #fffefa !important; border: 0 !important; line-height: 31px !important; }
+.leaflet-control-zoom-in { border-bottom: 1px solid #e7e6de !important; }
+.leaflet-control-scale-line { color: #243229 !important; background: rgba(255,254,248,.76) !important; border-color: #344239 !important; font-size: 9px !important; }
+.leaflet-bottom.leaflet-right { margin: 0 14px 21px 0; }
+.leaflet-control-attribution { background: rgba(255,254,248,.78) !important; font-size: 9px !important; }
+.poi-icon-wrap { width: max-content !important; display: flex !important; align-items: center; gap: 6px; background: transparent; border: 0; }
+.poi-dot { width: 22px; height: 22px; flex: 0 0 22px; display: grid; place-items: center; color: #fffefa; background: #d96548; border: 2px solid #fffefa; border-radius: 50%; box-shadow: 0 1px 6px rgba(29,39,31,.37); font-size: 9px; font-weight: 700; }
+.poi-label { padding: 4px 6px; color: #2a372f; background: rgba(255,254,248,.91); border: 1px solid rgba(51,65,54,.13); border-radius: 3px; box-shadow: 0 1px 4px rgba(29,39,31,.12); font-size: 9px; font-weight: 650; white-space: nowrap; }
+.leaflet-popup-content-wrapper { border-radius: 4px !important; }
+.leaflet-popup-content { color: #435046; font-size: 11px; line-height: 1.65; }
+.map-tools { position: absolute; z-index: 500; top: 17px; right: 61px; display: flex; align-items: center; gap: 7px; }
+.basemap-switch, .tool-button { height: 34px; display: flex; align-items: center; color: #405045; background: rgba(255,254,249,.95); border: 1px solid rgba(50,63,53,.15); border-radius: 4px; box-shadow: 0 2px 7px rgba(30,40,30,.12); }
+.basemap-switch { gap: 2px; padding: 3px; }
+.basemap-switch button { height: 26px; padding: 0 10px; color: #738075; background: transparent; border: 0; border-radius: 3px; font-size: 10px; cursor: pointer; }
+.basemap-switch button.active { color: #f8f7f1; background: #34483a; }
+.tool-button { width: 34px; justify-content: center; cursor: pointer; }
+.tool-button:hover { color: #d96548; }
+.compass-button { position: relative; }
+.compass-button span { position: absolute; top: 2px; font-size: 7px; font-weight: 700; }
+.map-caption { position: absolute; z-index: 400; top: 23px; left: 27px; display: flex; align-items: center; gap: 8px; padding: 8px 10px; color: #34443a; background: rgba(255,254,248,.83); border: 1px solid rgba(48,60,51,.1); border-radius: 3px; font-size: 8px; font-weight: 700; letter-spacing: .08em; box-shadow: 0 1px 5px rgba(28,38,30,.08); }
+.caption-rule { width: 15px; height: 2px; background: #da7457; }
+.caption-separator { color: #b2b6aa; }
+.chat-panel { position: absolute; z-index: 600; left: 26px; bottom: 25px; width: min(390px,calc(100% - 52px)); max-height: min(468px,calc(100% - 88px)); display: flex; flex-direction: column; overflow: hidden; color: #303d34; background: #fffefa; border: 1px solid rgba(39,53,44,.16); border-radius: 6px; box-shadow: 0 12px 38px rgba(29,40,31,.21),0 2px 7px rgba(29,40,31,.1); animation: panel-arrive 420ms cubic-bezier(.2,.8,.2,1) both; }
+@keyframes panel-arrive { from { opacity: 0; transform: translateY(11px); } to { opacity: 1; transform: translateY(0); } }
+.chat-heading { min-height: 62px; display: flex; align-items: center; gap: 10px; padding: 0 15px; border-bottom: 1px solid #ebeae3; }
+.chat-heading-icon { width: 29px; height: 29px; display: grid; place-items: center; color: #48614d; background: #e9eee4; border-radius: 50%; }
+.chat-title { display: flex; flex-direction: column; gap: 2px; }
+.chat-title strong { color: #27372d; font: 600 15px Georgia, 'Iowan Old Style', serif; }
+.chat-title span { color: #858c82; font-size: 10px; }
+.online-pill { margin-left: auto; display: flex; align-items: center; gap: 5px; color: #73826f; font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+.online-pill i { width: 5px; height: 5px; }
+.panel-close { width: 26px; height: 26px; display: grid; place-items: center; margin-left: 4px; color: #8b9188; background: transparent; border: 0; border-radius: 3px; cursor: pointer; }
+.panel-close:hover { color: #34483a; background: #f2f2eb; }
+.chat-context { min-height: 34px; display: flex; align-items: center; gap: 7px; padding: 0 15px; color: #7a8479; background: #faf9f4; border-bottom: 1px solid #eeede7; font-size: 9px; }
+.chat-context > span { font-size: 8px; font-weight: 700; letter-spacing: .07em; }
+.chat-context strong { color: #526151; font-size: 9px; font-weight: 600; }
+.chat-context > svg:last-child { margin-left: auto; }
+.conversation { min-height: 105px; flex: 1; overflow-y: auto; padding: 13px 13px 10px; }
+.message { display: flex; align-items: flex-start; gap: 7px; margin-bottom: 9px; }
+.message p { max-width: 310px; margin: 0; padding: 9px 10px; color: #526055; background: #f4f4ee; border-radius: 2px 7px 7px; font-size: 10.5px; line-height: 1.55; }
+.assistant-avatar { width: 21px; height: 21px; flex: 0 0 21px; display: grid; place-items: center; color: #60715e; background: #e7ebe1; border-radius: 50%; }
+.message-user { justify-content: flex-end; }
+.message-user p { color: #f7f6f0; background: #435747; border-radius: 7px 2px 7px 7px; }
+.prompt-row { display: flex; flex-wrap: wrap; gap: 6px; padding-left: 28px; margin-top: 3px; }
+.prompt-row button { display: flex; align-items: center; gap: 5px; padding: 6px 8px; color: #60715e; background: #fffefa; border: 1px solid #dfe3d8; border-radius: 3px; font-size: 9px; cursor: pointer; }
+.prompt-row button:hover { color: #34483a; background: #f4f5ee; border-color: #c5cdbf; }
+.chat-input { height: 41px; flex: 0 0 41px; display: flex; align-items: center; gap: 8px; margin: 0 12px; padding: 0 6px 0 11px; border: 1px solid #dedfd7; border-radius: 4px; }
+.chat-input:focus-within { border-color: #9eae9a; box-shadow: 0 0 0 2px rgba(126,151,119,.12); }
+.chat-input input { min-width: 0; flex: 1; color: #354239; background: transparent; border: 0; outline: 0; font-size: 10px; }
+.chat-input input::placeholder { color: #9a9f96; }
+.send-button { width: 27px; height: 27px; display: grid; place-items: center; color: #fffefa; background: #405644; border: 0; border-radius: 3px; cursor: pointer; }
+.send-button:disabled { color: #99a297; background: #eceee8; cursor: default; }
+.chat-footnote { min-height: 28px; display: flex; align-items: center; justify-content: center; gap: 5px; color: #9a9e94; font-size: 8px; }
+.chat-footnote span { display: flex; color: #a17f56; }
+.reopen-chat { position: absolute; z-index: 600; left: 26px; bottom: 25px; height: 42px; display: flex; align-items: center; gap: 9px; padding: 0 13px; color: #35473b; background: #fffefa; border: 1px solid rgba(39,53,44,.16); border-radius: 4px; box-shadow: 0 5px 18px rgba(29,40,31,.2); font-size: 11px; cursor: pointer; }
+.reopen-chat svg:last-child { margin-left: 8px; color: #889288; }
+.map-credit { position: absolute; z-index: 400; right: 16px; bottom: 20px; display: flex; align-items: center; gap: 7px; padding: 5px 7px; color: #6d796e; background: rgba(255,254,248,.72); border-radius: 2px; font-size: 7px; font-weight: 700; letter-spacing: .08em; pointer-events: none; }
+.credit-divider { width: 1px; height: 9px; background: #b9beb3; }
+@media (max-width: 700px) {
+  .topbar { height: 58px; flex-basis: 58px; gap: 12px; padding: 0 13px; }
+  .brand { min-width: 0; gap: 7px; }
+  .brand-mark { width: 29px; height: 29px; }
+  .brand-name { font-size: 18px; }
+  .search-wrap { width: auto; height: 35px; flex: 1; gap: 7px; padding: 0 8px; }
+  .search-wrap kbd, .topbar-meta { display: none; }
+  .avatar-button { width: 29px; height: 29px; flex: 0 0 29px; }
+  .map-caption { top: 12px; left: 12px; gap: 5px; padding: 7px; font-size: 7px; }
+  .map-tools { top: 12px; right: 12px; gap: 5px; }
+  .basemap-switch button { padding: 0 7px; }
+  .tool-button { display: none; }
+  .leaflet-control-zoom { margin: 59px 12px 0 0 !important; }
+  .chat-panel { left: 10px; bottom: 10px; width: min(390px,calc(100% - 20px)); max-height: min(410px,calc(100% - 75px)); }
+  .chat-heading { min-height: 54px; padding: 0 12px; }
+  .conversation { min-height: 80px; padding: 10px; }
+  .message p { font-size: 10px; }
+  .map-credit { display: none; }
+  .reopen-chat { left: 10px; bottom: 10px; }
+}
+@media (max-width: 390px) {
+  .topbar { gap: 8px; padding: 0 9px; }
+  .brand-name { font-size: 16px; }
+  .brand-mark { width: 26px; height: 26px; }
+  .avatar-button, .online-pill { display: none; }
+  .map-caption { max-width: calc(100% - 155px); overflow: hidden; white-space: nowrap; }
+}

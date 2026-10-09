@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import type { FormEvent } from 'react'
 import { MapContainer, Marker, Popup, ScaleControl, TileLayer, ZoomControl, useMap } from 'react-leaflet'
 import L from 'leaflet'
-import { ArrowDownLeft, ArrowUpRight, Bot, ChevronDown, Compass, LocateFixed, MapPin, Mountain, Search, Send, Sparkles, X } from 'lucide-react'
+import { ArrowDownLeft, ArrowUpRight, Bot, ChevronDown, ChevronLeft, ChevronRight, Compass, LocateFixed, MapPin, Mountain, Search, Send, Sparkles, X } from 'lucide-react'
 import 'leaflet/dist/leaflet.css'
 import './map.css'
 
@@ -27,6 +27,9 @@ const initialMessages: Message[] = [
   { role: 'assistant', text: 'Hello, explorer. We are above Lauterbrunnen, where the valley floor sits beneath some of the highest cliffs in the Alps.' },
   { role: 'assistant', text: 'Ask me about the landscape, visible landmarks, or what to look for in this view.' },
 ]
+
+const imageryYears = Array.from({ length: 100 }, (_, index) => 1926 + index).filter((year) => year !== 1928)
+const imageryTimes: (number | 'current')[] = [...imageryYears, 'current']
 
 function createPoiIcon(place: Place) {
   return L.divIcon({
@@ -69,11 +72,13 @@ function App() {
   const [messages, setMessages] = useState(initialMessages)
   const [question, setQuestion] = useState('')
   const [mapType, setMapType] = useState<'aerial' | 'relief'>('aerial')
+  const [imageryTimeIndex, setImageryTimeIndex] = useState(imageryTimes.length - 1)
   const [target, setTarget] = useState<[number, number] | null>(null)
   const [activeLocation, setActiveLocation] = useState(locations[0])
   const [search, setSearch] = useState('')
   const [suggestionsOpen, setSuggestionsOpen] = useState(false)
   const [chatOpen, setChatOpen] = useState(true)
+  const imageryTime = imageryTimes[imageryTimeIndex]
 
   const visibleLocations = locations.filter((location) => location.name.toLowerCase().includes(search.toLowerCase()))
 
@@ -133,10 +138,13 @@ function App() {
       <section className="map-stage" id="map" aria-label="Swiss satellite map">
         <MapContainer center={[46.5935, 7.9091]} zoom={14} zoomControl={false} scrollWheelZoom className="map-canvas">
           <TileLayer
-            key={mapType}
-            url={`https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.${mapType === 'aerial' ? 'swissimage' : 'pixelkarte-farbe'}/default/current/3857/{z}/{x}/{y}.${mapType === 'aerial' ? 'jpeg' : 'jpeg'}`}
+            key={`${mapType}-${imageryTime}`}
+            url={mapType === 'aerial' && imageryTime !== 'current'
+              ? `https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.swissimage-product/default/${imageryTime}/3857/{z}/{x}/{y}.jpeg`
+              : `https://wmts.geo.admin.ch/1.0.0/ch.swisstopo.${mapType === 'aerial' ? 'swissimage' : 'pixelkarte-farbe'}/default/current/3857/{z}/{x}/{y}.jpeg`}
             attribution='&copy; <a href="https://www.swisstopo.admin.ch/">swisstopo</a>'
             maxZoom={19}
+            maxNativeZoom={mapType === 'aerial' && imageryTime !== 'current' ? 18 : 19}
           />
           <ZoomControl position="topright" />
           <ScaleControl position="bottomright" imperial={false} />
@@ -157,7 +165,30 @@ function App() {
           <button className="tool-button compass-button" type="button" aria-label="Map orientation north up" title="North is up"><Compass size={18} /><span>N</span></button>
         </div>
 
-        <div className="map-caption"><span className="caption-rule" /><span>{activeLocation.name.toUpperCase()} · {activeLocation.region.toUpperCase()}</span><span className="caption-separator">/</span><span>SWISSIMAGE ORTHOPHOTO</span></div>
+        <div className={`timeline-control${mapType === 'relief' ? ' is-disabled' : ''}`} role="group" aria-label="Historical imagery">
+          <div className="timeline-heading">
+            <span className="timeline-label">IMAGE YEAR</span>
+            <strong aria-live="polite">{imageryTime === 'current' ? 'CURRENT' : imageryTime}</strong>
+            <span className="timeline-source">{mapType === 'relief' ? 'AERIAL ONLY' : imageryTime === 'current' ? 'LIVE MOSAIC' : 'SWISSIMAGE ARCHIVE'}</span>
+          </div>
+          <div className="timeline-slider-row">
+            <button type="button" aria-label="Previous image year" title="Previous image year" disabled={mapType === 'relief' || imageryTimeIndex === 0} onClick={() => setImageryTimeIndex((index) => Math.max(0, index - 1))}><ChevronLeft size={15} /></button>
+            <input
+              aria-label="Select imagery year"
+              type="range"
+              min={0}
+              max={imageryTimes.length - 1}
+              step={1}
+              value={imageryTimeIndex}
+              disabled={mapType === 'relief'}
+              onChange={(event) => setImageryTimeIndex(Number(event.target.value))}
+            />
+            <button type="button" aria-label="Next image year" title="Next image year" disabled={mapType === 'relief' || imageryTimeIndex === imageryTimes.length - 1} onClick={() => setImageryTimeIndex((index) => Math.min(imageryTimes.length - 1, index + 1))}><ChevronRight size={15} /></button>
+          </div>
+          <div className="timeline-endpoints"><span>1926</span><span>NOW</span></div>
+        </div>
+
+        <div className="map-caption"><span className="caption-rule" /><span>{activeLocation.name.toUpperCase()} · {activeLocation.region.toUpperCase()}</span><span className="caption-separator">/</span><span>{mapType === 'relief' ? 'TOPOGRAPHIC RELIEF' : `SWISSIMAGE ${imageryTime === 'current' ? 'CURRENT' : imageryTime}`}</span></div>
 
         {chatOpen ? (
           <aside className="chat-panel" aria-label="Ask about the map">

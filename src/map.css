@@ -52,6 +52,19 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
 .tool-button:hover { color: #d96548; }
 .compass-button { position: relative; }
 .compass-button span { position: absolute; top: 2px; font-size: 7px; font-weight: 700; }
+.timeline-control { position: absolute; z-index: 500; right: 17px; bottom: 43px; width: min(440px,calc(100% - 34px)); padding: 10px 13px 8px; color: #35443a; background: rgba(255,254,249,.96); border: 1px solid rgba(50,63,53,.16); border-radius: 4px; box-shadow: 0 3px 12px rgba(30,40,30,.16); }
+.timeline-heading { min-height: 16px; display: flex; align-items: center; gap: 9px; }
+.timeline-label { color: #829083; font-size: 8px; font-weight: 700; letter-spacing: .08em; }
+.timeline-heading strong { color: #34483a; font: 600 13px/1 Georgia, 'Iowan Old Style', serif; }
+.timeline-source { margin-left: auto; color: #879184; font-size: 8px; font-weight: 650; letter-spacing: .06em; }
+.timeline-slider-row { height: 27px; display: flex; align-items: center; gap: 8px; }
+.timeline-slider-row button { width: 23px; height: 23px; flex: 0 0 23px; display: grid; place-items: center; padding: 0; color: #526353; background: transparent; border: 1px solid #e2e4db; border-radius: 3px; cursor: pointer; }
+.timeline-slider-row button:hover:not(:disabled) { color: #c85e45; background: #f8f5ee; border-color: #d8cfc0; }
+.timeline-slider-row button:disabled { color: #b7bdb3; cursor: default; }
+.timeline-slider-row input { width: 100%; height: 16px; margin: 0; accent-color: #d96548; cursor: pointer; }
+.timeline-slider-row input:disabled { cursor: not-allowed; }
+.timeline-endpoints { display: flex; justify-content: space-between; padding: 0 31px; color: #90988d; font-size: 8px; line-height: 1; }
+.timeline-control.is-disabled { opacity: .82; }
 .map-caption { position: absolute; z-index: 400; top: 23px; left: 27px; display: flex; align-items: center; gap: 8px; padding: 8px 10px; color: #34443a; background: rgba(255,254,248,.83); border: 1px solid rgba(48,60,51,.1); border-radius: 3px; font-size: 8px; font-weight: 700; letter-spacing: .08em; box-shadow: 0 1px 5px rgba(28,38,30,.08); }
 .caption-rule { width: 15px; height: 2px; background: #da7457; }
 .caption-separator { color: #b2b6aa; }
@@ -101,9 +114,10 @@ button:focus-visible, a:focus-visible, input:focus-visible { outline: 2px solid 
   .avatar-button { width: 29px; height: 29px; flex: 0 0 29px; }
   .map-caption { top: 12px; left: 12px; gap: 5px; padding: 7px; font-size: 7px; }
   .map-tools { top: 12px; right: 12px; gap: 5px; }
+  .timeline-control { top: 59px; right: 12px; bottom: auto; left: 12px; width: auto; }
   .basemap-switch button { padding: 0 7px; }
   .tool-button { display: none; }
-  .leaflet-control-zoom { margin: 59px 12px 0 0 !important; }
+  .leaflet-control-zoom { margin: 148px 12px 0 0 !important; }
   .chat-panel { left: 10px; bottom: 10px; width: min(390px,calc(100% - 20px)); max-height: min(410px,calc(100% - 75px)); }
   .chat-heading { min-height: 54px; padding: 0 12px; }
   .conversation { min-height: 80px; padding: 10px; }
